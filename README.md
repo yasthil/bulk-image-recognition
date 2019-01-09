@@ -6,6 +6,10 @@ Setup the C# library using this command:
 
 NB: Setup the Create service account key
 
+Remember to run this first:
+``` gcloud auth application-default login ```
+This will launch a browser prompting you to login - this will link to your billing account on Google Cloud
+
 Follow instructions here:
 https://cloud.google.com/vision/docs/detecting-labels
 
