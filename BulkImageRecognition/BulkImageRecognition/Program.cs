@@ -10,7 +10,8 @@ namespace BulkImageRecognition
     {
         static void Main(string[] args)
         {
-
+            BulkImageRecog bulkImageRecog = new BulkImageRecog();
+            bulkImageRecog.Run();
         }
     }
 }

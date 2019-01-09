@@ -8,16 +8,31 @@ namespace BulkImageRecognition
     {
         public void Run()
         {
-            // Load an image from a local file.
-            var filePath = "/PATH/TO/IMAGE.png";
-            var image = Image.FromFile(filePath);
+            string IMAGE_PATH = "src/images/";
+
+            // Instantiates a client
             var client = ImageAnnotatorClient.Create();
-            var response = client.DetectLabels(image);
-            foreach (var annotation in response)
+
+            foreach (string file in Directory.EnumerateFiles(IMAGE_PATH, "*.jpg"))
             {
-                if (annotation.Description != null)
-                    Console.WriteLine(annotation.Description);
+                // Load the image file into memory
+                var image = Image.FromFile(file);
+
+                // Performs label detection on the image file
+                var response = client.DetectLabels(image);            
+                foreach (var annotation in response)
+                {
+                    if (annotation.Description != null)
+                    {
+                        // print out the Description of the image from the response we get from Google Cloud Vision's API
+                        Console.WriteLine(annotation.Description);
+                    }
+                }               
             }
+
+            // pause the cmd window from closing
+            Console.WriteLine("Press Enter to exit...");
+            Console.ReadLine();
         }
       
     }
