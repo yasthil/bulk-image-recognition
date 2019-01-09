@@ -19,15 +19,22 @@ namespace BulkImageRecognition
                 var image = Image.FromFile(file);
 
                 // Performs label detection on the image file
-                var response = client.DetectLabels(image);            
+                var response = client.DetectLabels(image);
+                string imageLabels = "";
+                string labelTextFile;
                 foreach (var annotation in response)
                 {
                     if (annotation.Description != null)
                     {
-                        // print out the Description of the image from the response we get from Google Cloud Vision's API
                         Console.WriteLine(annotation.Description);
+
+                        // store all labels
+                        imageLabels = imageLabels + annotation.Description + ",";
                     }
-                }               
+                }
+                // create a text file for each image with corresponding labels
+                labelTextFile = IMAGE_PATH + Path.GetFileName(file) + "-labels.txt";
+                File.WriteAllText(labelTextFile, imageLabels);
             }
 
             // pause the cmd window from closing
